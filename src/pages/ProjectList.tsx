@@ -69,7 +69,7 @@ export default function ProjectList({ user }: ProjectListProps) {
           >
             <Link 
               to={`/projects/${project.id}`}
-              className="group block bg-white border border-slate-200 p-6 rounded-lg hover:border-slate-400 hover:shadow-md transition-all relative"
+              className="group block bg-white border border-slate-200 p-6 rounded-lg hover:border-slate-400 hover:shadow-md transition-all relative cursor-pointer"
             >
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div className="flex-1 space-y-2">

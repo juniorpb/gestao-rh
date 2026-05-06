@@ -241,7 +241,7 @@ export default function Dashboard({ user }: DashboardProps) {
           </div>
           
           <div className="mt-4 pt-4 border-t border-slate-100">
-             <button className="w-full py-2 bg-slate-50 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded text-[9px] font-bold uppercase tracking-widest transition-all">Ver Relatório Completo</button>
+             <button className="w-full py-2 bg-slate-50 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded text-[9px] font-bold uppercase tracking-widest transition-all cursor-pointer">Ver Relatório Completo</button>
           </div>
         </motion.div>
       </div>
@@ -254,7 +254,7 @@ export default function Dashboard({ user }: DashboardProps) {
                 <div className="w-1 h-5 bg-slate-950 rounded-full"></div>
                 <h3 className="text-sm font-bold text-slate-950 uppercase tracking-wider">Projetos Recentes</h3>
               </div>
-              <Link to="/projects" className="text-slate-600 hover:text-slate-900 font-bold text-[10px] uppercase tracking-wider">Ver todos</Link>
+              <Link to="/projects" className="text-slate-600 hover:text-slate-900 font-bold text-[10px] uppercase tracking-wider cursor-pointer">Ver todos</Link>
             </div>
 
             <div className="overflow-x-auto">
@@ -412,7 +412,7 @@ export default function Dashboard({ user }: DashboardProps) {
               </div>
               <button 
                 onClick={() => setIsChartMaximized(false)}
-                className="p-3 bg-slate-100 hover:bg-slate-200 rounded-full transition-all text-slate-900 shadow-sm"
+                className="p-3 bg-slate-100 hover:bg-slate-200 rounded-full transition-all text-slate-900 shadow-sm cursor-pointer"
               >
                 <X size={24} />
               </button>

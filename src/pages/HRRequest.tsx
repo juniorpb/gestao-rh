@@ -62,6 +62,7 @@ export default function HRRequest({ user }: HRRequestProps) {
   const [showSearch, setShowSearch] = useState<'candidates' | 'specialists' | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [generatingPdf, setGeneratingPdf] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [history, setHistory] = useState<HistoryLog[]>([]);
 
   const scholarshipValues = mockScholarshipTables[0].categories;
@@ -145,8 +146,7 @@ export default function HRRequest({ user }: HRRequestProps) {
     setGeneratingPdf(true);
     setTimeout(() => {
       setGeneratingPdf(false);
-      alert(`Documento de ${isImplantation ? 'Implantação' : 'Alteração'} gerado com sucesso! Faça o upload no SWAP.`);
-      navigate(`/projects/${id}`);
+      setShowSuccessModal(true);
     }, 2000);
   };
 
@@ -414,7 +414,7 @@ export default function HRRequest({ user }: HRRequestProps) {
                     <button
                       key={c.id}
                       onClick={() => handleAddMember(c, 'PROCESS_SELECT')}
-                      className="w-full p-4 flex items-center justify-between hover:bg-slate-50 rounded transition-all text-left group"
+                      className="w-full p-4 flex items-center justify-between hover:bg-slate-50 rounded transition-all text-left group cursor-pointer"
                     >
                       <div>
                         <p className="font-bold text-slate-800 text-sm">{c.name}</p>
@@ -432,7 +432,7 @@ export default function HRRequest({ user }: HRRequestProps) {
                     <button
                       key={s.id}
                       onClick={() => handleAddMember(s, 'SPECIALIST_BANK')}
-                      className="w-full p-4 flex items-center justify-between hover:bg-slate-50 rounded transition-all text-left group"
+                      className="w-full p-4 flex items-center justify-between hover:bg-slate-50 rounded transition-all text-left group cursor-pointer"
                     >
                       <div>
                         <p className="font-bold text-slate-800 text-sm">{s.name}</p>
@@ -447,6 +447,42 @@ export default function HRRequest({ user }: HRRequestProps) {
                   ))
                 )}
               </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Success Modal */}
+      <AnimatePresence>
+        {showSuccessModal && (
+          <div className="fixed inset-0 z-[110] flex items-center justify-center p-6">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm"
+            />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="bg-white w-full max-w-sm p-8 rounded-3xl shadow-2xl relative z-10 text-center"
+            >
+              <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle2 size={40} />
+              </div>
+              <h3 className="text-2xl font-black text-slate-900 mb-2">Sucesso!</h3>
+              <p className="text-slate-500 font-medium mb-8">
+                Documento de {isImplantation ? 'Implantação' : 'Alteração'} gerado com sucesso! <br />
+                <span className="text-blue-600 font-bold">Faça o upload no SWAP.</span>
+              </p>
+              <button 
+                onClick={() => navigate(`/projects/${id}`)}
+                className="w-full py-4 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-3 group uppercase tracking-widest text-xs cursor-pointer"
+              >
+                Voltar ao Projeto
+                <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform rotate-180" />
+              </button>
             </motion.div>
           </div>
         )}
