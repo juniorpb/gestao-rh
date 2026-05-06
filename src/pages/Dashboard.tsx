@@ -137,7 +137,7 @@ export default function Dashboard({ user }: DashboardProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.05 }}
-            className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm flex items-center group transition-all"
+            className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm flex items-center group transition-all cursor-pointer"
           >
             <div className={`w-12 h-12 rounded flex items-center justify-center ${stat.bg} ${stat.color} mr-4 transition-transform`}>
               <stat.icon size={24} />
@@ -225,7 +225,7 @@ export default function Dashboard({ user }: DashboardProps) {
           
           <div className="flex-1 overflow-y-auto space-y-3 pr-1 max-h-[350px] scrollbar-thin scrollbar-thumb-slate-200">
             {alerts.map((alerta) => (
-              <div key={alerta.name} className={`flex items-center p-3 ${alerta.bg} rounded border ${alerta.border} transition-all hover:brightness-95`}>
+              <div key={alerta.name} className={`flex items-center p-3 ${alerta.bg} rounded border ${alerta.border} transition-all hover:brightness-95 cursor-pointer`}>
                 <div className={`w-8 h-8 rounded border ${alerta.border} ${alerta.bg} ${alerta.color} flex items-center justify-center shrink-0 mr-3 font-bold text-xs shadow-sm`}>
                   {alerta.initial}
                 </div>

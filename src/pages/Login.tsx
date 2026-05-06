@@ -8,7 +8,7 @@ interface LoginProps {
 }
 
 export default function Login({ onLogin }: LoginProps) {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('usuario.teste@polo.com');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ export default function Login({ onLogin }: LoginProps) {
           <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
             <ShieldCheck size={32} />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight">MVP Gestão de RH</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-white">MVP Gestão de RH</h1>
           <p className="text-blue-100 mt-1 text-sm font-medium">Gestão Inteligente de Projetos e RH</p>
         </div>
         
@@ -36,7 +36,7 @@ export default function Login({ onLogin }: LoginProps) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all pl-11 text-sm font-medium"
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all pl-11 text-sm font-medium cursor-text"
                 placeholder="nome@polo.com"
                 required
               />
@@ -46,7 +46,7 @@ export default function Login({ onLogin }: LoginProps) {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-blue-100 transition-all active:scale-[0.98]"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-blue-100 transition-all active:scale-[0.98] cursor-pointer"
           >
             Acessar Sistema
           </button>
@@ -67,7 +67,7 @@ export default function Login({ onLogin }: LoginProps) {
                   key={user.id}
                   type="button"
                   onClick={() => onLogin(user.email)}
-                  className="flex flex-col items-center p-3 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50 transition-all text-left group"
+                  className="flex flex-col items-center p-3 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50 transition-all text-left group cursor-pointer"
                 >
                   <UserCircle size={20} className="text-slate-400 group-hover:text-blue-500 mb-1 transition-colors" />
                   <span className="text-xs font-bold text-slate-700">{user.name.split(' ')[0]}</span>

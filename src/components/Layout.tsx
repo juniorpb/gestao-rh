@@ -193,11 +193,11 @@ export default function Layout({ children, user, onLogout }: LayoutProps) {
           <button 
             onClick={onLogout}
             className={cn(
-              "flex items-center gap-3 w-full px-3 py-2 text-slate-400 hover:bg-red-50 hover:text-red-600 rounded transition-all text-xs font-medium group",
+              "flex items-center gap-3 w-full px-3 py-2 text-slate-400 hover:bg-red-50 hover:text-red-600 rounded transition-all text-xs font-medium group cursor-pointer",
               !isSidebarOpen && "justify-center"
             )}
           >
-            <LogOut size={18} />
+            <LogOut size={18} className="text-red-500 group-hover:text-red-600 transition-colors" />
             {isSidebarOpen && <span>Encerrar Sessão</span>}
           </button>
         </div>
@@ -210,7 +210,7 @@ export default function Layout({ children, user, onLogout }: LayoutProps) {
           <div className="flex items-center gap-4 flex-1">
             <button 
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="p-1.5 hover:bg-slate-50 rounded text-slate-400 transition-all border border-transparent hover:border-slate-100"
+              className="p-1.5 hover:bg-slate-50 rounded text-slate-400 transition-all border border-transparent hover:border-slate-100 cursor-pointer"
             >
               <Menu size={18} />
             </button>
@@ -225,12 +225,12 @@ export default function Layout({ children, user, onLogout }: LayoutProps) {
           </div>
           
           <div className="flex items-center gap-4">
-            <button className="relative w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-md transition-all">
+            <button className="relative w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-md transition-all cursor-pointer">
               <Bell size={18} />
               <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-blue-600 rounded-full border-2 border-white"></span>
             </button>
             <div className="h-6 w-px bg-slate-200 mx-1"></div>
-            <div className="flex items-center gap-3 cursor-pointer group">
+            <div className="flex items-center gap-3 cursor-pointer group hover:bg-slate-50 p-1.5 rounded-lg transition-all">
               <div className="text-right hidden sm:block animate-in fade-in">
                 <p className="text-xs font-semibold text-slate-900 leading-none mb-1">{user.name}</p>
                 <p className="text-[10px] font-medium text-slate-400 uppercase tracking-wider">{user.role}</p>

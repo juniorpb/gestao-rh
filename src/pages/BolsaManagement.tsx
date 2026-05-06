@@ -23,7 +23,7 @@ export default function BolsaManagement() {
           <h2 className="text-2xl font-bold text-slate-900">Parâmetros Normativos</h2>
           <p className="text-slate-500 text-sm mt-1">Gestão de categorias e valores de bolsas institucionais.</p>
         </div>
-        <button className="flex items-center px-4 py-2 bg-slate-900 text-white rounded font-bold text-[10px] uppercase tracking-wider hover:bg-slate-800 transition-all shadow-sm">
+        <button className="flex items-center px-4 py-2 bg-slate-900 text-white rounded font-bold text-[10px] uppercase tracking-wider hover:bg-slate-800 transition-all shadow-sm cursor-pointer">
           <Plus size={16} className="mr-2" />
           Nova Tabela
         </button>
@@ -55,11 +55,11 @@ export default function BolsaManagement() {
               </div>
               
               <div className="flex gap-2">
-                <button className="p-2 text-slate-400 hover:text-slate-900 hover:bg-slate-50 rounded transition-all">
+                <button className="p-2 text-slate-400 hover:text-slate-900 hover:bg-slate-50 rounded transition-all cursor-pointer">
                   <Edit3 size={18} />
                 </button>
                 {!table.active && (
-                  <button className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-all">
+                  <button className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-all cursor-pointer">
                     <Trash2 size={18} />
                   </button>
                 )}

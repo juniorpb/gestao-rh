@@ -74,7 +74,7 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
       <div className="flex items-center justify-between border-b border-slate-200 pb-4">
         <button 
           onClick={() => navigate('/projects')}
-          className="flex items-center text-slate-600 hover:text-slate-950 transition-colors group"
+          className="flex items-center text-slate-600 hover:text-slate-950 transition-colors group cursor-pointer"
         >
           <ArrowLeft size={14} className="mr-1.5 group-hover:-translate-x-0.5 transition-transform" />
           <span className="text-[9px] font-black uppercase tracking-[0.2em]">Voltar</span>
@@ -206,7 +206,7 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
                     </div>
                   ))}
                   {project.annexes.length < 4 && (
-                    <button className="w-full flex flex-col items-center justify-center gap-2 py-6 border-2 border-dashed border-slate-200 rounded-lg text-slate-600 hover:border-blue-300 hover:bg-blue-50/10 hover:text-blue-500 transition-all group">
+                    <button className="w-full flex flex-col items-center justify-center gap-2 py-6 border-2 border-dashed border-slate-200 rounded-lg text-slate-600 hover:border-blue-300 hover:bg-blue-50/10 hover:text-blue-500 transition-all group cursor-pointer">
                       <div className="p-2 bg-slate-50 rounded-full group-hover:bg-blue-50 group-hover:text-blue-600 transition-all">
                         <Plus size={20} />
                       </div>

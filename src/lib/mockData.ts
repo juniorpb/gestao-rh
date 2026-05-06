@@ -3,6 +3,7 @@ import { User, UserRole, Project, ScholarshipTable, Specialist, Candidate, HRMem
 
 export const mockUsers: User[] = [
   { id: '1', name: 'Gestor do Polo', email: 'gestor@polo.com', role: UserRole.GESTOR, isServidor: true },
+  { id: 't1', name: 'Usuário Teste', email: 'usuario.teste@polo.com', role: UserRole.GESTOR, isServidor: true },
   { id: '2', name: 'Dr. Roberto Santos', email: 'roberto.santos@if.edu.br', role: UserRole.COORDENADOR, isServidor: true },
   { id: '3', name: 'Dra. Ana Costa', email: 'ana.costa@if.edu.br', role: UserRole.COORDENADOR, isServidor: true },
 ];
