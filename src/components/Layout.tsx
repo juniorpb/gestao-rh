@@ -178,18 +178,6 @@ export default function Layout({ children, user, onLogout }: LayoutProps) {
         </nav>
 
         <div className="p-4 mt-auto border-t border-slate-100">
-          {isSidebarOpen && (
-            <div className="bg-slate-50 rounded-md p-4 mb-4 border border-slate-100">
-              <div className="flex justify-between text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-2">
-                <span>Carga Operacional</span>
-                <span className="text-slate-900">78%</span>
-              </div>
-              <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                <div className="w-[78%] h-full bg-slate-700 rounded-full"></div>
-              </div>
-            </div>
-          )}
-          
           <button 
             onClick={onLogout}
             className={cn(
