@@ -79,7 +79,7 @@ export default function ProjectForm() {
         </div>
         <button 
           onClick={() => navigate('/projects')}
-          className="p-2 hover:bg-slate-200 rounded-full transition-colors group"
+          className="p-2 hover:bg-slate-200 rounded-full transition-colors group cursor-pointer"
         >
           <X size={24} className="text-slate-400 group-hover:text-slate-600" />
         </button>
@@ -164,7 +164,7 @@ export default function ProjectForm() {
             <button 
               type="button"
               onClick={handleAddResource}
-              className="text-[10px] font-black text-blue-600 bg-blue-50 px-4 py-1.5 rounded-lg hover:bg-blue-100 transition-all uppercase tracking-widest border border-blue-100"
+              className="text-[10px] font-black text-blue-600 bg-blue-50 px-4 py-1.5 rounded-lg hover:bg-blue-100 transition-all uppercase tracking-widest border border-blue-100 cursor-pointer"
             >
               + Adicionar Rubrica
             </button>
@@ -204,7 +204,7 @@ export default function ProjectForm() {
                   <button 
                     type="button"
                     onClick={() => handleRemoveResource(idx)}
-                    className="p-2.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
+                    className="p-2.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all cursor-pointer"
                   >
                     <Trash2 size={18} />
                   </button>
@@ -264,7 +264,7 @@ export default function ProjectForm() {
                                 setShowCoordSearch(false);
                                 setCoordSearchTerm('');
                               }}
-                              className="w-full px-6 py-4 text-left hover:bg-slate-50 border-b border-slate-100 last:border-0 transition-colors flex items-center justify-between group"
+                              className="w-full px-6 py-4 text-left hover:bg-slate-50 border-b border-slate-100 last:border-0 transition-colors flex items-center justify-between group cursor-pointer"
                             >
                               <div>
                                 <p className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors uppercase tracking-tight">{c.name}</p>
@@ -298,7 +298,7 @@ export default function ProjectForm() {
                 <button 
                   type="button"
                   onClick={() => setSelectedCoordinator(null)}
-                  className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
+                  className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all cursor-pointer"
                 >
                   <Trash2 size={18} />
                 </button>
@@ -339,14 +339,14 @@ export default function ProjectForm() {
           <button 
             type="button" 
             onClick={() => navigate('/projects')}
-            className="text-xs font-black text-slate-400 hover:text-slate-900 uppercase tracking-widest transition-colors"
+            className="text-xs font-black text-slate-400 hover:text-slate-900 uppercase tracking-widest transition-colors cursor-pointer"
           >
             Descartar Rascunho
           </button>
           <button 
             type="submit"
             disabled={!isFormValid}
-            className="px-8 py-3.5 bg-blue-600 text-white font-black rounded-xl shadow-xl shadow-blue-100 hover:bg-blue-700 disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed transition-all active:scale-95 flex items-center gap-3 uppercase tracking-widest text-xs"
+            className="px-8 py-3.5 bg-blue-600 text-white font-black rounded-xl shadow-xl shadow-blue-100 hover:bg-blue-700 disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed transition-all active:scale-95 flex items-center gap-3 uppercase tracking-widest text-xs cursor-pointer"
           >
             <Save size={18} />
             Efetivar Cadastro
@@ -380,7 +380,7 @@ export default function ProjectForm() {
               </p>
               <button 
                 onClick={() => navigate('/projects')}
-                className="w-full py-4 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-3 group uppercase tracking-widest text-xs"
+                className="w-full py-4 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-3 group uppercase tracking-widest text-xs cursor-pointer"
               >
                 Continuar para lista
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />

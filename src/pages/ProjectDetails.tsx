@@ -79,7 +79,6 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
           <ArrowLeft size={14} className="mr-1.5 group-hover:-translate-x-0.5 transition-transform" />
           <span className="text-[9px] font-black uppercase tracking-[0.2em]">Voltar</span>
         </button>
- admissions:
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -97,7 +96,7 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
                 {(isCoordinator || isGestor) && (
                   <button 
                     onClick={() => setIsEditingProject(true)}
-                    className="p-2 hover:bg-slate-100 rounded-full transition-all text-slate-600 hover:text-slate-950 group"
+                    className="p-2 hover:bg-slate-100 rounded-full transition-all text-slate-600 hover:text-slate-950 group cursor-pointer"
                     title="Editar informações do projeto"
                   >
                     <Edit3 size={18} className="group-hover:scale-110 transition-transform" />
@@ -317,7 +316,7 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
                   <button 
                     onClick={() => setCurrentPageRH(p => Math.max(1, p - 1))}
                     disabled={currentPageRH === 1}
-                    className="p-2 border border-slate-200 rounded bg-white text-slate-400 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="p-2 border border-slate-200 rounded bg-white text-slate-400 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
                   >
                     <ArrowLeft size={16} />
                   </button>
@@ -327,7 +326,7 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
                   <button 
                     onClick={() => setCurrentPageRH(p => Math.min(totalPagesRH, p + 1))}
                     disabled={currentPageRH === totalPagesRH}
-                    className="p-2 border border-slate-200 rounded bg-white text-slate-400 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rotate-180"
+                    className="p-2 border border-slate-200 rounded bg-white text-slate-400 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rotate-180 cursor-pointer"
                   >
                     <ArrowLeft size={16} />
                   </button>
@@ -342,7 +341,7 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
           <div className="bg-slate-900 text-white p-6 rounded-lg border border-slate-800 relative group">
             <button 
               onClick={() => setIsChartMaximized(true)}
-              className="absolute top-4 right-4 p-2 bg-white/5 hover:bg-white/10 rounded-full transition-all text-slate-400 hover:text-white"
+              className="absolute top-4 right-4 p-2 bg-white/5 hover:bg-white/10 rounded-full transition-all text-slate-400 hover:text-white cursor-pointer"
               title="Expandir gráfico"
             >
               <TrendingUp size={16} />

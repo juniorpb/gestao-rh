@@ -43,14 +43,14 @@ export default function ProjectList({ user }: ProjectListProps) {
         </div>
         
         <div className="flex items-center gap-3">
-          <button className="flex items-center px-4 py-2 bg-white border border-slate-200 rounded text-slate-600 text-[10px] font-bold uppercase tracking-wider hover:bg-slate-50 transition-all shadow-sm">
+          <button className="flex items-center px-4 py-2 bg-white border border-slate-200 rounded text-slate-600 text-[10px] font-bold uppercase tracking-wider hover:bg-slate-50 transition-all shadow-sm cursor-pointer">
             <Filter size={14} className="mr-2" />
             Filtros
           </button>
           {isGestor && (
             <Link 
               to="/projects/new"
-              className="flex items-center px-4 py-2 bg-slate-900 text-white rounded font-bold text-[10px] uppercase tracking-wider hover:bg-slate-800 transition-all shadow-sm active:scale-95 whitespace-nowrap"
+              className="flex items-center px-4 py-2 bg-slate-900 text-white rounded font-bold text-[10px] uppercase tracking-wider hover:bg-slate-800 transition-all shadow-sm active:scale-95 whitespace-nowrap cursor-pointer"
             >
               <Plus size={16} className="mr-2" />
               Novo Projeto

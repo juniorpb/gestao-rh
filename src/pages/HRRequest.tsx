@@ -155,7 +155,7 @@ export default function HRRequest({ user }: HRRequestProps) {
       <div className="flex items-center justify-between border-b border-slate-200 pb-6">
         <button 
           onClick={() => navigate(`/projects/${id}`)}
-          className="flex items-center text-slate-500 hover:text-slate-900 font-bold uppercase text-[10px] tracking-wider transition-colors group"
+          className="flex items-center text-slate-500 hover:text-slate-900 font-bold uppercase text-[10px] tracking-wider transition-colors group cursor-pointer"
         >
           <ArrowLeft size={16} className="mr-2" />
           Voltar ao Projeto
@@ -174,7 +174,7 @@ export default function HRRequest({ user }: HRRequestProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <button 
           onClick={() => setShowSearch('candidates')}
-          className="flex items-center p-6 bg-white border border-slate-200 rounded-lg hover:border-slate-400 hover:bg-slate-50 transition-all group shadow-sm"
+          className="flex items-center p-6 bg-white border border-slate-200 rounded-lg hover:border-slate-400 hover:bg-slate-50 transition-all group shadow-sm cursor-pointer"
         >
           <div className="p-3 bg-slate-100 text-slate-600 rounded mr-6 group-hover:bg-slate-200 transition-colors">
             <Users size={24} />
@@ -187,7 +187,7 @@ export default function HRRequest({ user }: HRRequestProps) {
         
         <button 
           onClick={() => setShowSearch('specialists')}
-          className="flex items-center p-6 bg-white border border-slate-200 rounded-lg hover:border-slate-400 hover:bg-slate-50 transition-all group shadow-sm"
+          className="flex items-center p-6 bg-white border border-slate-200 rounded-lg hover:border-slate-400 hover:bg-slate-50 transition-all group shadow-sm cursor-pointer"
         >
           <div className="p-3 bg-slate-900 text-white rounded mr-6">
             <UserPlus size={24} />
@@ -239,7 +239,7 @@ export default function HRRequest({ user }: HRRequestProps) {
                   </div>
                   <button 
                     onClick={() => handleRemoveMember(member.id)}
-                    className="p-2 text-slate-300 hover:text-red-600 transition-colors"
+                    className="p-2 text-slate-300 hover:text-red-600 transition-colors cursor-pointer"
                   >
                     <Trash2 size={18} />
                   </button>
@@ -359,7 +359,7 @@ export default function HRRequest({ user }: HRRequestProps) {
         <button 
           onClick={handleFinalize}
           disabled={members.length === 0 || generatingPdf}
-          className="flex items-center px-8 py-3 bg-slate-900 text-white rounded font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition-all disabled:opacity-30 disabled:grayscale shadow-sm active:scale-95"
+          className="flex items-center px-8 py-3 bg-slate-900 text-white rounded font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition-all disabled:opacity-30 disabled:grayscale shadow-sm active:scale-95 cursor-pointer"
         >
           {generatingPdf ? (
             <>
@@ -391,7 +391,7 @@ export default function HRRequest({ user }: HRRequestProps) {
                 </h3>
                 <button 
                   onClick={() => setShowSearch(null)}
-                  className="p-2 hover:bg-slate-100 rounded-full transition-all text-slate-400"
+                  className="p-2 hover:bg-slate-100 rounded-full transition-all text-slate-400 cursor-pointer"
                 >
                   <X size={18} />
                 </button>
