@@ -22,7 +22,7 @@ export default function Login({ onLogin }: LoginProps) {
           <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
             <ShieldCheck size={32} />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight">PRH Polo</h1>
+          <h1 className="text-2xl font-bold tracking-tight">MVP Gestão de RH</h1>
           <p className="text-blue-100 mt-1 text-sm font-medium">Gestão Inteligente de Projetos e RH</p>
         </div>
         
@@ -52,7 +52,15 @@ export default function Login({ onLogin }: LoginProps) {
           </button>
 
           <div className="pt-6 border-t border-slate-100">
-            <p className="text-[10px] uppercase font-black text-slate-300 text-center mb-4 tracking-widest">Acesso Rápido para Testes</p>
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-[10px] uppercase font-black text-slate-500 tracking-widest">Acesso Rápido para Testes</p>
+              <div className="flex items-center gap-2">
+                <span className="text-[9px] font-black text-slate-400 uppercase">modo teste</span>
+                <div className="w-8 h-4 bg-blue-600 rounded-full relative opacity-50 cursor-not-allowed">
+                  <div className="absolute right-1 top-1 w-2 h-2 bg-white rounded-full"></div>
+                </div>
+              </div>
+            </div>
             <div className="grid grid-cols-2 gap-3">
               {mockUsers.map(user => (
                 <button

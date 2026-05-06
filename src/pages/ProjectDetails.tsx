@@ -52,9 +52,16 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
   const [showPdf, setShowPdf] = useState(false);
   const [editingMember, setEditingMember] = useState<HRMember | null>(null);
   const [isEditingProject, setIsEditingProject] = useState(false);
+  const [isChartMaximized, setIsChartMaximized] = useState(false);
+  const [currentPageRH, setCurrentPageRH] = useState(1);
 
   const project = mockProjects.find(p => p.id === id);
-  const hrMembers = mockHRMembers.filter(h => h.projectId === id);
+  const allHrMembers = mockHRMembers.filter(h => h.projectId === id);
+  const hrMembersCount = allHrMembers.length;
+  const itemsPerPage = 5;
+  const totalPagesRH = Math.ceil(hrMembersCount / itemsPerPage);
+  const hrMembers = allHrMembers.slice((currentPageRH - 1) * itemsPerPage, currentPageRH * itemsPerPage);
+  
   const coordinator = mockUsers.find(u => u.id === project?.coordinatorId);
 
   if (!project) return <div>Projeto não encontrado</div>;
@@ -169,11 +176,15 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
 
                 <div className="space-y-3">
                   <div className="flex items-center justify-between mb-4">
-                    <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Ativos Digitais (Máx 04)</h5>
+                    <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Anexos</h5>
                     <span className="text-[10px] font-bold text-slate-300">{project.annexes.length}/4</span>
                   </div>
                   {project.annexes.map((doc, i) => (
-                    <div key={i} className="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-lg hover:border-slate-500 transition-all cursor-pointer group shadow-sm">
+                    <div 
+                      key={i} 
+                      onClick={() => setShowPdf(true)}
+                      className="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-lg hover:border-slate-500 transition-all cursor-pointer group shadow-sm"
+                    >
                       <div className="flex items-center gap-4">
                         <div className="w-10 h-10 bg-slate-50 rounded flex items-center justify-center text-slate-400 group-hover:bg-red-50 group-hover:text-red-500 transition-colors">
                           <FileText size={20} />
@@ -184,15 +195,12 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
                         </div>
                       </div>
                       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button 
-                          onClick={(e) => { e.preventDefault(); setShowPdf(true); }}
-                          className="p-2 bg-slate-100 text-slate-600 rounded hover:bg-slate-200 transition-all"
-                        >
+                        <div className="p-2 bg-slate-100 text-slate-600 rounded hover:bg-slate-200 transition-all">
                           <Eye size={14} />
-                        </button>
-                        <button className="p-2 bg-slate-100 text-slate-600 rounded hover:bg-slate-200 transition-all">
+                        </div>
+                        <div className="p-2 bg-slate-100 text-slate-600 rounded hover:bg-slate-200 transition-all">
                           <Download size={14} />
-                        </button>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -299,15 +307,48 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
                 </tbody>
               </table>
             </div>
+
+            {/* Paginação RH */}
+            {totalPagesRH > 1 && (
+              <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
+                <p className="text-[10px] font-bold text-slate-400 uppercase">Mostrando {(currentPageRH - 1) * itemsPerPage + 1} a {Math.min(currentPageRH * itemsPerPage, hrMembersCount)} de {hrMembersCount}</p>
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => setCurrentPageRH(p => Math.max(1, p - 1))}
+                    disabled={currentPageRH === 1}
+                    className="p-2 border border-slate-200 rounded bg-white text-slate-400 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    <ArrowLeft size={16} />
+                  </button>
+                  <div className="flex items-center gap-1 px-4 text-xs font-bold text-slate-600 bg-slate-50 border border-slate-200 rounded uppercase">
+                    Página {currentPageRH} <span className="text-slate-300 mx-1">/</span> {totalPagesRH}
+                  </div>
+                  <button 
+                    onClick={() => setCurrentPageRH(p => Math.min(totalPagesRH, p + 1))}
+                    disabled={currentPageRH === totalPagesRH}
+                    className="p-2 border border-slate-200 rounded bg-white text-slate-400 hover:text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rotate-180"
+                  >
+                    <ArrowLeft size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
           </section>
         </div>
 
         {/* Informações Laterais */}
         <div className="space-y-4">
-          <div className="bg-slate-900 text-white p-6 rounded-lg border border-slate-800">
+          <div className="bg-slate-900 text-white p-6 rounded-lg border border-slate-800 relative group">
+            <button 
+              onClick={() => setIsChartMaximized(true)}
+              className="absolute top-4 right-4 p-2 bg-white/5 hover:bg-white/10 rounded-full transition-all text-slate-400 hover:text-white"
+              title="Expandir gráfico"
+            >
+              <TrendingUp size={16} />
+            </button>
             <div className="flex items-center gap-2 mb-6 text-slate-400 uppercase text-[10px] font-bold tracking-widest">
               <TrendingUp size={14} className="text-blue-400" />
-              <span>Execução Orçamentária vs. Planejamento</span>
+              <span>Execução Orçamentária</span>
             </div>
             
             <div className="h-[200px] w-full mb-6">
@@ -375,11 +416,11 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
             </div>
           </div>
 
-          {/* Histórico de RH */}
-          <div className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm flex flex-col max-h-[500px]">
+          {/* Histórico do Projeto - Vertical Column */}
+          <div className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm flex flex-col max-h-[700px]">
              <div className="flex items-center gap-2 mb-4">
               <History size={14} className="text-slate-600" />
-              <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[11px]">Histórico de edição do Projeto</h4>
+              <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[11px]">Histórico do Projeto</h4>
             </div>
             
             <div className="flex-1 overflow-y-auto space-y-4 pr-1 scrollbar-thin scrollbar-thumb-slate-200">
@@ -387,10 +428,15 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
                 { type: 'INC', label: 'INCLUSÃO', date: '02/05/2026', user: 'Ana Costa', desc: 'Proveniente de Processo Seletivo (PS-001/2026).', color: 'text-emerald-700', bg: 'bg-emerald-50' },
                 { type: 'UPDT', label: 'ALTERAÇÃO', date: '28/04/2026', user: 'João Silva', desc: 'Carga horária ajustada de 40h para 60h semanais.', color: 'text-blue-700', bg: 'bg-blue-50' },
                 { type: 'UPDT', label: 'CATEGORIA', date: '20/04/2026', user: 'Roberto Santos', desc: 'Rebaixamento de categoria: Sênior para Pleno conforme auditoria.', color: 'text-amber-700', bg: 'bg-amber-50' },
+                { type: 'DOC', label: 'DOCUMENTO', date: '18/04/2026', user: 'Ana Costa', desc: 'Upload de Termo de Ciência e Compromisso assinado.', color: 'text-slate-700', bg: 'bg-slate-100' },
                 { type: 'PAY', label: 'FONTE', date: '15/04/2026', user: 'Ana Costa', desc: 'Alteração de fonte pagadora: 100% Empresa -> 50% Empresa / 50% Embrapìi.', color: 'text-purple-700', bg: 'bg-purple-50' },
                 { type: 'REM', label: 'EXCLUSÃO', date: '10/04/2026', user: 'Pedro Oliver', desc: 'Desligamento solicitado pelo coordenador técnico.', color: 'text-red-700', bg: 'bg-red-50' },
                 { type: 'PROF', label: 'PERFIL', date: '05/04/2026', user: 'Maria Souza', desc: 'Mudança de perfil: Aluno para Colaborador Externo (Conclusão de Curso).', color: 'text-slate-700', bg: 'bg-slate-50' },
-                { type: 'INC', label: 'REMANEJO', date: '01/04/2026', user: 'Lucas Amado', desc: 'Remanejado do Projeto SMART-CITY para suporte técnico.', color: 'text-emerald-700', bg: 'bg-emerald-50' },
+                { type: 'UPDT', label: 'DATA', date: '02/04/2026', user: 'Roberto Santos', desc: 'Prorrogação de prazo da entrega técnica parcial.', color: 'text-blue-700', bg: 'bg-blue-50' },
+                { type: 'INC', label: 'RECURSO', date: '28/03/2026', user: 'João Silva', desc: 'Inclusão de novo item orçamentário para infraestrutura.', color: 'text-emerald-700', bg: 'bg-emerald-50' },
+                { type: 'DOC', label: 'ANEXO', date: '20/03/2026', user: 'Maria Souza', desc: 'Inclusão de cronograma de atividades revisado (V2).', color: 'text-slate-700', bg: 'bg-slate-100' },
+                { type: 'UPDT', label: 'STATUS', date: '15/03/2026', user: 'Admin', desc: 'Projeto movido para fase de execução plena.', color: 'text-blue-700', bg: 'bg-blue-50' },
+                { type: 'INC', label: 'INÍCIO', date: '01/03/2026', user: 'Admin', desc: 'Criação do registro mestre do projeto no sistema.', color: 'text-emerald-700', bg: 'bg-emerald-50' },
               ].map((log, i) => (
                 <div key={i} className="relative pl-6 pb-4 border-l border-slate-200 last:border-0 last:pb-0">
                   <div className={`absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full border-2 border-white ${log.bg.replace('bg-', 'bg-')} ring-1 ring-slate-200 shadow-sm`}></div>
@@ -400,8 +446,8 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
                     </span>
                     <span className="text-[9px] font-bold text-slate-500">{log.date}</span>
                   </div>
-                  <p className="text-xs font-bold text-slate-900 mb-0.5">{log.user}</p>
-                  <p className="text-[10px] text-slate-600 leading-tight italic">{log.desc}</p>
+                  <p className="text-[10px] font-bold text-slate-900 leading-tight mb-0.5">{log.desc}</p>
+                  <p className="text-[9px] text-slate-500 italic">Por: {log.user}</p>
                 </div>
               ))}
             </div>
@@ -417,13 +463,120 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
         </div>
       </div>
 
+
+
+      {/* Maximizado: Gráfico Orçamentário */}
+      {isChartMaximized && (
+        <div 
+          className="fixed inset-0 z-[120] flex items-center justify-center p-8 bg-slate-900/90 backdrop-blur-md animate-in fade-in duration-300"
+          onClick={() => setIsChartMaximized(false)}
+        >
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            className="bg-white w-full max-w-6xl p-10 rounded-xl shadow-2xl relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-10">
+              <div className="flex items-center gap-4">
+                 <div className="p-3 bg-blue-600 text-white rounded-lg shadow-lg shadow-blue-200">
+                    <TrendingUp size={24} />
+                 </div>
+                 <div>
+                    <h3 className="text-xl font-bold text-slate-900">Execução Orçamentária Detalhada</h3>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">{project.title}</p>
+                 </div>
+              </div>
+              <button 
+                onClick={() => setIsChartMaximized(false)}
+                className="p-3 bg-slate-100 hover:bg-slate-200 rounded-full transition-all text-slate-900 shadow-sm"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="h-[450px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={budgetData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                  <XAxis 
+                    dataKey="period" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fontSize: 12, fontWeight: 700, fill: '#64748b' }}
+                  />
+                  <YAxis 
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 11, fontWeight: 700, fill: '#64748b' }}
+                    tickFormatter={(value) => `R$ ${(value / 1000).toFixed(0)}k`}
+                    domain={[0, 800000]}
+                  />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: '#ffffff', 
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '8px',
+                      fontSize: '12px',
+                      fontWeight: 'bold',
+                      boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)'
+                    }}
+                    formatter={(value: number) => `R$ ${value.toLocaleString('pt-BR')}`}
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="projecao" 
+                    stroke="#cbd5e1" 
+                    strokeWidth={3} 
+                    strokeDasharray="8 8" 
+                    dot={false}
+                    name="Projeção Estipulada"
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="saldo" 
+                    stroke="#3b82f6" 
+                    strokeWidth={5} 
+                    dot={{ fill: '#3b82f6', r: 6, strokeWidth: 3, stroke: '#fff' }}
+                    activeDot={{ r: 8, stroke: '#3b82f6' }}
+                    name="Saldo Remanescente Real"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="mt-10 grid grid-cols-3 gap-8 border-t border-slate-100 pt-10">
+               <div className="p-6 bg-slate-50 rounded-xl border border-slate-100">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Status da Execução</p>
+                  <p className="text-2xl font-bold text-slate-900 tracking-tight">19% de Saldo</p>
+                  <div className="mt-3 flex items-center gap-2">
+                     <div className="px-2 py-0.5 bg-red-100 text-red-600 text-[10px] font-black rounded uppercase">Alerta de Desvio</div>
+                  </div>
+               </div>
+               <div className="p-6 bg-slate-50 rounded-xl border border-slate-100">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Total Orçado</p>
+                  <p className="text-2xl font-bold text-slate-900 tracking-tight italic">R$ 800.000,00</p>
+               </div>
+               <div className="p-6 bg-slate-900 rounded-xl border border-slate-800 shadow-xl shadow-slate-200 flex flex-col justify-center">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Última Atualização</p>
+                  <p className="text-lg font-bold text-white uppercase italic">Maio de 2026</p>
+               </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
       {/* Simulador de Visualização de PDF */}
       {showPdf && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300">
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300"
+          onClick={() => setShowPdf(false)}
+        >
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className="bg-white w-full max-w-4xl h-full rounded shadow-2xl flex flex-col overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
           >
             <div className="p-4 bg-white border-b border-slate-200 flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -431,8 +584,8 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
                     <FileText size={20} />
                  </div>
                  <div>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none mb-1">Visualização de Ativo Digital</p>
-                    <p className="text-sm font-bold text-slate-900">{project.annexes[0]}</p>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none mb-1">Visualização de Documento</p>
+                    <p className="text-sm font-bold text-slate-900 underline decoration-blue-500 decoration-2">{project.annexes[0]}</p>
                  </div>
               </div>
               <button 

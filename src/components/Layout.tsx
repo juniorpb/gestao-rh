@@ -55,10 +55,10 @@ export default function Layout({ children, user, onLogout }: LayoutProps) {
       >
         <div className="p-6 flex items-center justify-between border-b border-slate-50">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-slate-900 rounded flex items-center justify-center text-white font-bold shrink-0 shadow-sm">P</div>
+            <div className="w-8 h-8 bg-slate-900 rounded flex items-center justify-center text-white font-bold shrink-0 shadow-sm text-xs">M</div>
             {isSidebarOpen && (
               <div className="animate-in fade-in slide-in-from-left-2 duration-500">
-                <span className="text-sm font-bold tracking-tight text-slate-900 block leading-none">POLO TECNOLÓGICO</span>
+                <span className="text-sm font-bold tracking-tight text-slate-900 block leading-none">MVP GESTÃO RH</span>
                 <span className="text-[9px] font-medium text-slate-400 uppercase tracking-widest mt-1 block">Gestão de Recursos</span>
               </div>
             )}

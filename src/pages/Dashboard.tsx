@@ -10,7 +10,8 @@ import {
   AlertCircle,
   TrendingUp,
   Plus,
-  BarChart3
+  BarChart3,
+  X
 } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
@@ -60,13 +61,15 @@ export default function Dashboard({ user }: DashboardProps) {
   const navigate = useNavigate();
   const isGestor = user.role === UserRole.GESTOR;
   
+  const [isChartMaximized, setIsChartMaximized] = React.useState(false);
+
   const myProjects = isGestor 
     ? mockProjects 
     : mockProjects.filter(p => p.coordinatorId === user.id);
 
   const stats = [
     { name: 'Projetos Ativos', value: myProjects.length, icon: Briefcase, color: 'text-blue-600', bg: 'bg-blue-50' },
-    { name: 'Total de RH', value: mockHRMembers.filter(h => myProjects.some(p => p.id === h.projectId)).length, icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
+    { name: 'Total de Pesquisados', value: mockHRMembers.filter(h => myProjects.some(p => p.id === h.projectId)).length, icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
     { name: 'Solicitações Pendentes', value: 2, icon: Clock, color: 'text-amber-600', bg: 'bg-amber-50' },
     { name: 'Aprovadas', value: 12, icon: CheckCircle2, color: 'text-emerald-600', bg: 'bg-emerald-50' },
   ];
@@ -302,6 +305,13 @@ export default function Dashboard({ user }: DashboardProps) {
 
         <div className="space-y-6">
           <div className="bg-slate-900 text-white p-6 rounded-lg shadow-sm border border-slate-800 relative overflow-hidden group">
+            <button 
+              onClick={() => setIsChartMaximized(true)}
+              className="absolute top-4 right-4 p-2 bg-white/5 hover:bg-white/10 rounded-full transition-all text-slate-400 hover:text-white z-10"
+              title="Expandir gráfico"
+            >
+              <TrendingUp size={16} />
+            </button>
             <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-6 flex items-center gap-2">
               <TrendingUp size={14} className="text-slate-400" />
               Execução Orçamentária Global
@@ -377,6 +387,107 @@ export default function Dashboard({ user }: DashboardProps) {
           </div>
         </div>
       </div>
+
+      {/* Maximizado: Gráfico Orçamentário Global */}
+      {isChartMaximized && (
+        <div 
+          className="fixed inset-0 z-[120] flex items-center justify-center p-8 bg-slate-900/90 backdrop-blur-md animate-in fade-in duration-300"
+          onClick={() => setIsChartMaximized(false)}
+        >
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            className="bg-white w-full max-w-6xl p-10 rounded-xl shadow-2xl relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-10">
+              <div className="flex items-center gap-4">
+                 <div className="p-3 bg-blue-600 text-white rounded-lg shadow-lg shadow-blue-200">
+                    <TrendingUp size={24} />
+                 </div>
+                 <div>
+                    <h3 className="text-xl font-bold text-slate-900">Execução Orçamentária Global</h3>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Visão Consolidada do Polo</p>
+                 </div>
+              </div>
+              <button 
+                onClick={() => setIsChartMaximized(false)}
+                className="p-3 bg-slate-100 hover:bg-slate-200 rounded-full transition-all text-slate-900 shadow-sm"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="h-[450px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={budgetData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                  <XAxis 
+                    dataKey="period" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fontSize: 12, fontWeight: 700, fill: '#64748b' }}
+                  />
+                  <YAxis 
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 11, fontWeight: 700, fill: '#64748b' }}
+                    tickFormatter={(value) => `R$ ${(value / 1000000).toFixed(1)}M`}
+                    domain={[0, 4000000]}
+                  />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: '#ffffff', 
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '8px',
+                      fontSize: '12px',
+                      fontWeight: 'bold',
+                      boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)'
+                    }}
+                    formatter={(value: number) => `R$ ${value.toLocaleString('pt-BR')}`}
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="projecao" 
+                    stroke="#cbd5e1" 
+                    strokeWidth={3} 
+                    strokeDasharray="8 8" 
+                    dot={false}
+                    name="Projeção"
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="saldo" 
+                    stroke="#3b82f6" 
+                    strokeWidth={5} 
+                    dot={{ fill: '#3b82f6', r: 6, strokeWidth: 3, stroke: '#fff' }}
+                    activeDot={{ r: 8, stroke: '#3b82f6' }}
+                    name="Saldo Remanescente"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="mt-10 grid grid-cols-3 gap-8 border-t border-slate-100 pt-10">
+               <div className="p-6 bg-slate-50 rounded-xl border border-slate-100">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Saúde Orçamentária</p>
+                  <p className="text-2xl font-bold text-slate-900 tracking-tight">11% Restante</p>
+                  <div className="mt-3 flex items-center gap-2">
+                     <div className="px-2 py-0.5 bg-red-100 text-red-600 text-[10px] font-black rounded uppercase">Curva de Desvio Ativa</div>
+                  </div>
+               </div>
+               <div className="p-6 bg-slate-50 rounded-xl border border-slate-100">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Investimento Total</p>
+                  <p className="text-2xl font-bold text-slate-900 tracking-tight italic">R$ 4.000.000,00</p>
+               </div>
+               <div className="p-6 bg-slate-900 rounded-xl border border-slate-800 shadow-xl shadow-slate-200 flex flex-col justify-center">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Status de Consolidação</p>
+                  <p className="text-lg font-bold text-white uppercase italic">Auditado Maio/2026</p>
+               </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }
