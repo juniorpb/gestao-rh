@@ -12,6 +12,8 @@ import {
   Settings,
   User as UserIcon,
   Search,
+  ChevronDown,
+  ChevronRight,
   Bell
 } from 'lucide-react';
 import { User, UserRole } from '../types';
@@ -30,19 +32,44 @@ interface LayoutProps {
 
 export default function Layout({ children, user, onLogout }: LayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({ 'Projetos': true });
   const location = useLocation();
+  const navigate = useNavigate();
 
   if (!user) return <>{children}</>;
 
-  const menuItems = [
+  interface MenuItem {
+    name: string;
+    icon: any;
+    path?: string;
+    subItems?: { name: string; icon: any; path: string }[];
+  }
+
+  const menuItems: MenuItem[] = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
-    { name: 'Projetos', icon: Briefcase, path: '/projects' },
+    { 
+      name: 'Projetos', 
+      icon: Briefcase, 
+      subItems: [
+        { name: 'Lista de Projetos', icon: Briefcase, path: '/projects' }
+      ] 
+    },
   ];
 
   if (user.role === UserRole.GESTOR) {
-    menuItems.push({ name: 'Cadastrar Projeto', icon: PlusCircle, path: '/projects/new' });
+    const projetosMenu = menuItems.find(m => m.name === 'Projetos');
+    if (projetosMenu && projetosMenu.subItems) {
+      projetosMenu.subItems.push({ name: 'Cadastrar Projeto', icon: PlusCircle, path: '/projects/new' });
+    }
     menuItems.push({ name: 'Tabelas de Bolsas', icon: Settings, path: '/bolsas' });
   }
+
+  const toggleMenu = (name: string) => {
+    setExpandedMenus(prev => ({
+      ...prev,
+      [name]: !prev[name]
+    }));
+  };
 
   return (
     <div className="h-screen bg-slate-50 flex overflow-hidden font-sans text-slate-800">
@@ -67,30 +94,85 @@ export default function Layout({ children, user, onLogout }: LayoutProps) {
         
         <nav className="flex-1 px-3 space-y-1 overflow-y-auto mt-4">
           {menuItems.map((item, idx) => {
-            const isActive = location.pathname === item.path;
+            const hasSubItems = item.subItems && item.subItems.length > 0;
+            const isExpanded = expandedMenus[item.name];
+            const isActive = item.path ? location.pathname === item.path : false;
+            
             return (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2 rounded transition-all group relative duration-200",
-                  isActive 
-                    ? "bg-slate-100 text-slate-900 font-semibold" 
-                    : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+              <div key={item.name} className="space-y-1">
+                {item.path ? (
+                  <Link
+                    to={item.path}
+                    className={cn(
+                      "flex items-center gap-3 px-3 py-2 rounded transition-all group relative duration-200",
+                      isActive 
+                        ? "bg-slate-100 text-slate-900 font-semibold" 
+                        : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                    )}
+                  >
+                    <item.icon size={18} className={cn("shrink-0", !isSidebarOpen && "mx-auto")} />
+                    {isSidebarOpen && (
+                      <span className="text-xs font-medium">
+                        {item.name}
+                      </span>
+                    )}
+                    {!isSidebarOpen && (
+                      <div className="absolute left-full ml-4 px-2 py-1 bg-slate-900 text-white text-[10px] font-medium uppercase tracking-wider rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-all whitespace-nowrap z-50">
+                        {item.name}
+                      </div>
+                    )}
+                  </Link>
+                ) : (
+                  <button
+                    onClick={() => isSidebarOpen && toggleMenu(item.name)}
+                    className={cn(
+                      "w-full flex items-center gap-3 px-3 py-2 rounded transition-all group relative duration-200 text-left",
+                      "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                    )}
+                  >
+                    <item.icon size={18} className={cn("shrink-0", !isSidebarOpen && "mx-auto")} />
+                    {isSidebarOpen && (
+                      <>
+                        <span className="text-xs font-medium flex-1">
+                          {item.name}
+                        </span>
+                        {hasSubItems && (
+                          isExpanded ? <ChevronDown size={14} className="text-slate-400" /> : <ChevronRight size={14} className="text-slate-400" />
+                        )}
+                      </>
+                    )}
+                    {!isSidebarOpen && (
+                      <div className="absolute left-full ml-4 px-2 py-1 bg-slate-900 text-white text-[10px] font-medium uppercase tracking-wider rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-all whitespace-nowrap z-50">
+                        {item.name}
+                      </div>
+                    )}
+                  </button>
                 )}
-              >
-                <item.icon size={18} className={cn("shrink-0", !isSidebarOpen && "mx-auto")} />
-                {isSidebarOpen && (
-                  <span className="text-xs font-medium">
-                    {item.name}
-                  </span>
-                )}
-                {!isSidebarOpen && (
-                  <div className="absolute left-full ml-4 px-2 py-1 bg-slate-900 text-white text-[10px] font-medium uppercase tracking-wider rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-all whitespace-nowrap z-50">
-                    {item.name}
+
+                {/* Sub-menu rendering */}
+                {isSidebarOpen && hasSubItems && isExpanded && (
+                  <div className="pl-9 space-y-1 animate-in slide-in-from-top-2 duration-300">
+                    {item.subItems?.map(sub => {
+                      const isSubActive = location.pathname === sub.path;
+                      return (
+                        <Link
+                          key={sub.name}
+                          to={sub.path}
+                          className={cn(
+                            "flex items-center gap-2 py-1.5 text-xs transition-colors",
+                            isSubActive 
+                              ? "text-blue-600 font-bold" 
+                              : "text-slate-400 hover:text-slate-900"
+                          )}
+                        >
+                          <sub.icon size={14} className="shrink-0 opacity-60" />
+                          <span>{sub.name}</span>
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
-              </Link>
+              </div>
             );
           })}
         </nav>

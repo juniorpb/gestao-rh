@@ -74,11 +74,12 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
       <div className="flex items-center justify-between border-b border-slate-200 pb-4">
         <button 
           onClick={() => navigate('/projects')}
-          className="flex items-center text-slate-400 hover:text-slate-900 transition-colors group"
+          className="flex items-center text-slate-600 hover:text-slate-950 transition-colors group"
         >
           <ArrowLeft size={14} className="mr-1.5 group-hover:-translate-x-0.5 transition-transform" />
           <span className="text-[9px] font-black uppercase tracking-[0.2em]">Voltar</span>
         </button>
+ admissions:
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -88,61 +89,61 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
             <div className="flex flex-col gap-4 mb-8">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span className="px-2 py-0.5 bg-slate-100 text-slate-500 text-[10px] font-bold rounded uppercase tracking-wider border border-slate-200">
+                  <span className="px-2 py-0.5 bg-slate-100 text-slate-700 text-[10px] font-bold rounded uppercase tracking-wider border border-slate-200">
                     ID: {project.id}
                   </span>
-                  <span className="text-slate-500 font-bold text-lg">{project.acronym}</span>
+                  <span className="text-slate-700 font-bold text-lg">{project.acronym}</span>
                 </div>
                 {(isCoordinator || isGestor) && (
                   <button 
                     onClick={() => setIsEditingProject(true)}
-                    className="p-2 hover:bg-slate-100 rounded-full transition-all text-slate-400 hover:text-slate-900 group"
+                    className="p-2 hover:bg-slate-100 rounded-full transition-all text-slate-600 hover:text-slate-950 group"
                     title="Editar informações do projeto"
                   >
                     <Edit3 size={18} className="group-hover:scale-110 transition-transform" />
                   </button>
                 )}
               </div>
-              <h2 className="text-3xl font-bold text-slate-900 leading-tight">{project.title}</h2>
-              <p className="text-slate-600 text-sm leading-relaxed">{project.objectDescription}</p>
+              <h2 className="text-3xl font-bold text-slate-950 leading-tight">{project.title}</h2>
+              <p className="text-slate-800 text-sm leading-relaxed">{project.objectDescription}</p>
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 py-6 border-y border-slate-100">
               <div className="space-y-1">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Acrônimo</p>
-                <p className="font-bold text-slate-800 text-sm">{project.acronym}</p>
+                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider">Acrônimo</p>
+                <p className="font-bold text-slate-900 text-sm">{project.acronym}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Coordenador</p>
-                <p className="font-bold text-slate-800 text-sm truncate">{coordinator?.name || 'Não atribuído'}</p>
+                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider">Coordenador</p>
+                <p className="font-bold text-slate-900 text-sm truncate">{coordinator?.name || 'Não atribuído'}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Início</p>
-                <p className="font-bold text-slate-800 text-sm">{new Date(project.startDate).toLocaleDateString()}</p>
+                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider">Início</p>
+                <p className="font-bold text-slate-900 text-sm">{new Date(project.startDate).toLocaleDateString()}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Fim</p>
-                <p className="font-bold text-slate-800 text-sm">{new Date(project.endDate).toLocaleDateString()}</p>
+                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider">Fim</p>
+                <p className="font-bold text-slate-900 text-sm">{new Date(project.endDate).toLocaleDateString()}</p>
               </div>
             </div>
 
             <div className="pt-8 grid grid-cols-1 md:grid-cols-2 gap-12">
               <div className="space-y-6">
-                <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[11px] mb-4 border-l-2 border-slate-900 pl-3">Plano de Financiamento</h4>
+                <h4 className="font-bold text-slate-950 uppercase tracking-wider text-[11px] mb-4 border-l-2 border-slate-950 pl-3">Plano de Financiamento</h4>
                 <div className="space-y-3">
                   {project.resources.map((res, i) => (
                     <div key={i} className="flex items-center justify-between p-4 bg-slate-50 border border-slate-100 rounded-lg group hover:border-slate-300 transition-all">
                       <div className="flex flex-col">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{res.source}</span>
-                        <span className="text-xs font-bold text-slate-700">Recurso Aprovado</span>
+                        <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">{res.source}</span>
+                        <span className="text-xs font-bold text-slate-800">Recurso Aprovado</span>
                       </div>
-                      <span className="text-sm font-bold text-slate-900 bg-white px-3 py-1 rounded shadow-sm border border-slate-100 italic">R$ {res.value.toLocaleString('pt-BR')}</span>
+                      <span className="text-sm font-bold text-slate-950 bg-white px-3 py-1 rounded shadow-sm border border-slate-100 italic">R$ {res.value.toLocaleString('pt-BR')}</span>
                     </div>
                   ))}
-                  <div className="flex items-center justify-between p-5 bg-slate-900 rounded-lg text-white mt-6 shadow-xl shadow-slate-100 relative overflow-hidden group">
+                  <div className="flex items-center justify-between p-5 bg-slate-950 rounded-lg text-white mt-6 shadow-xl shadow-slate-100 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 -rotate-45 translate-x-12 -translate-y-12 transition-transform group-hover:scale-150"></div>
                     <div className="flex flex-col">
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Total Consolidado</span>
+                      <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest mb-1">Total Consolidado</span>
                       <span className="text-2xl font-bold tracking-tight italic">R$ {project.totalValue.toLocaleString('pt-BR')}</span>
                     </div>
                     <TrendingUp size={24} className="text-blue-400 opacity-50" />
@@ -176,8 +177,8 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
 
                 <div className="space-y-3">
                   <div className="flex items-center justify-between mb-4">
-                    <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Anexos</h5>
-                    <span className="text-[10px] font-bold text-slate-300">{project.annexes.length}/4</span>
+                    <h5 className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Anexos</h5>
+                    <span className="text-[10px] font-bold text-slate-500">{project.annexes.length}/4</span>
                   </div>
                   {project.annexes.map((doc, i) => (
                     <div 
@@ -186,26 +187,26 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
                       className="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-lg hover:border-slate-500 transition-all cursor-pointer group shadow-sm"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 bg-slate-50 rounded flex items-center justify-center text-slate-400 group-hover:bg-red-50 group-hover:text-red-500 transition-colors">
+                        <div className="w-10 h-10 bg-slate-50 rounded flex items-center justify-center text-slate-600 group-hover:bg-red-50 group-hover:text-red-500 transition-colors">
                           <FileText size={20} />
                         </div>
                         <div className="flex flex-col">
-                          <span className="text-[11px] font-bold text-slate-900 truncate max-w-[160px]">{doc}</span>
-                          <span className="text-[9px] font-bold text-slate-400 uppercase">Documento PDF</span>
+                          <span className="text-[11px] font-bold text-slate-950 truncate max-w-[160px]">{doc}</span>
+                          <span className="text-[9px] font-bold text-slate-600 uppercase">Documento PDF</span>
                         </div>
                       </div>
                       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="p-2 bg-slate-100 text-slate-600 rounded hover:bg-slate-200 transition-all">
+                        <div className="p-2 bg-slate-100 text-slate-800 rounded hover:bg-slate-200 transition-all">
                           <Eye size={14} />
                         </div>
-                        <div className="p-2 bg-slate-100 text-slate-600 rounded hover:bg-slate-200 transition-all">
+                        <div className="p-2 bg-slate-100 text-slate-800 rounded hover:bg-slate-200 transition-all">
                           <Download size={14} />
                         </div>
                       </div>
                     </div>
                   ))}
                   {project.annexes.length < 4 && (
-                    <button className="w-full flex flex-col items-center justify-center gap-2 py-6 border-2 border-dashed border-slate-200 rounded-lg text-slate-400 hover:border-blue-300 hover:bg-blue-50/10 hover:text-blue-500 transition-all group">
+                    <button className="w-full flex flex-col items-center justify-center gap-2 py-6 border-2 border-dashed border-slate-200 rounded-lg text-slate-600 hover:border-blue-300 hover:bg-blue-50/10 hover:text-blue-500 transition-all group">
                       <div className="p-2 bg-slate-50 rounded-full group-hover:bg-blue-50 group-hover:text-blue-600 transition-all">
                         <Plus size={20} />
                       </div>
@@ -225,8 +226,8 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
                   <Users size={20} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider">Recursos Humanos</h3>
-                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{hrMembers.length} Pesquisadores Alocados</p>
+                  <h3 className="text-lg font-bold text-slate-950 uppercase tracking-wider">Recursos Humanos</h3>
+                  <p className="text-[10px] text-slate-600 font-bold uppercase tracking-widest">{hrMembers.length} Pesquisadores Alocados</p>
                 </div>
               </div>
 
@@ -253,7 +254,7 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>
-                  <tr className="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200">
+                  <tr className="text-[10px] font-bold text-slate-600 uppercase tracking-widest border-b border-slate-200">
                     <th className="pb-3 px-2">Pesquisador</th>
                     <th className="pb-3">Função / Nível</th>
                     <th className="pb-3 text-center">Carga (h)</th>
@@ -270,10 +271,10 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
                     >
                       <td className="py-4 px-2">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-500 text-xs shrink-0">
+                          <div className="w-8 h-8 rounded bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-600 text-xs shrink-0">
                             {member.name.charAt(0)}
                           </div>
-                          <span className="font-bold text-slate-800 text-sm whitespace-nowrap">{member.name}</span>
+                          <span className="font-bold text-slate-950 text-sm whitespace-nowrap">{member.name}</span>
                         </div>
                       </td>
                       <td className="py-4">
@@ -288,7 +289,7 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
                         </span>
                       </td>
                       <td className="py-4">
-                        <div className="text-[10px] font-medium text-slate-500 uppercase tracking-wider">
+                        <div className="text-[10px] font-medium text-slate-700 uppercase tracking-wider">
                           {new Date(member.startDate).toLocaleDateString()} — {new Date(member.endDate).toLocaleDateString()}
                         </div>
                       </td>
@@ -346,7 +347,7 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
             >
               <TrendingUp size={16} />
             </button>
-            <div className="flex items-center gap-2 mb-6 text-slate-400 uppercase text-[10px] font-bold tracking-widest">
+            <div className="flex items-center gap-2 mb-6 text-slate-300 uppercase text-[10px] font-bold tracking-widest">
               <TrendingUp size={14} className="text-blue-400" />
               <span>Execução Orçamentária</span>
             </div>
@@ -420,7 +421,7 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
           <div className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm flex flex-col max-h-[700px]">
              <div className="flex items-center gap-2 mb-4">
               <History size={14} className="text-slate-600" />
-              <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[11px]">Histórico do Projeto</h4>
+              <h4 className="font-bold text-slate-950 uppercase tracking-wider text-[11px]">Histórico do Projeto</h4>
             </div>
             
             <div className="flex-1 overflow-y-auto space-y-4 pr-1 scrollbar-thin scrollbar-thumb-slate-200">
@@ -446,7 +447,7 @@ export default function ProjectDetails({ user }: ProjectDetailsProps) {
                     </span>
                     <span className="text-[9px] font-bold text-slate-500">{log.date}</span>
                   </div>
-                  <p className="text-[10px] font-bold text-slate-900 leading-tight mb-0.5">{log.desc}</p>
+                  <p className="text-[10px] font-bold text-slate-950 leading-tight mb-0.5">{log.desc}</p>
                   <p className="text-[9px] text-slate-500 italic">Por: {log.user}</p>
                 </div>
               ))}

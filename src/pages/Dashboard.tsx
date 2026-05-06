@@ -116,8 +116,8 @@ export default function Dashboard({ user }: DashboardProps) {
     <div className="space-y-8 animate-in slide-in-up">
       <div className="flex items-center justify-between border-b border-slate-200 pb-6">
         <div>
-          <h2 className="text-2xl font-bold text-slate-900">Dashboard Operacional</h2>
-          <p className="text-slate-500 text-sm mt-1">Bem-vindo, {user.name}. Visão geral dos ativos e recursos do Polo.</p>
+          <h2 className="text-2xl font-bold text-slate-950">Dashboard Operacional</h2>
+          <p className="text-slate-700 text-sm mt-1">Bem-vindo, {user.name}. Visão geral dos ativos e recursos do Polo.</p>
         </div>
         {isGestor && (
           <Link 
@@ -143,8 +143,8 @@ export default function Dashboard({ user }: DashboardProps) {
               <stat.icon size={24} />
             </div>
             <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">{stat.name}</p>
-              <p className="text-xl font-bold text-slate-900">{stat.value}</p>
+              <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">{stat.name}</p>
+              <p className="text-xl font-bold text-slate-950">{stat.value}</p>
             </div>
           </motion.div>
         ))}
@@ -159,8 +159,8 @@ export default function Dashboard({ user }: DashboardProps) {
           className="lg:col-span-3 bg-white p-6 rounded-lg border border-slate-200 shadow-sm"
         >
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-1 h-5 bg-slate-900 rounded-full"></div>
-            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Desembolso Mensal Previsto por Fonte Pagadora</h3>
+            <div className="w-1 h-5 bg-slate-950 rounded-full"></div>
+            <h3 className="text-sm font-bold text-slate-950 uppercase tracking-wider">Desembolso Mensal Previsto por Fonte Pagadora</h3>
           </div>
           <div className="h-[350px] w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -217,10 +217,10 @@ export default function Dashboard({ user }: DashboardProps) {
           className="lg:col-span-1 bg-white p-6 rounded-lg border border-slate-200 shadow-sm flex flex-col"
         >
           <div className="flex items-center gap-2 mb-6">
-            <div className="p-2 bg-slate-900 text-white rounded">
+            <div className="p-2 bg-slate-950 text-white rounded">
               <AlertCircle size={14} />
             </div>
-            <h3 className="text-[10px] font-bold text-slate-900 uppercase tracking-wider">Alertas de Alocação</h3>
+            <h3 className="text-[10px] font-bold text-slate-950 uppercase tracking-wider">Alertas de Alocação</h3>
           </div>
           
           <div className="flex-1 overflow-y-auto space-y-3 pr-1 max-h-[350px] scrollbar-thin scrollbar-thumb-slate-200">
@@ -230,9 +230,9 @@ export default function Dashboard({ user }: DashboardProps) {
                   {alerta.initial}
                 </div>
                 <div className="flex-1">
-                  <p className="text-xs font-bold text-slate-900 leading-none mb-1">{alerta.name}</p>
+                  <p className="text-xs font-bold text-slate-950 leading-none mb-1">{alerta.name}</p>
                   <div className="flex items-center justify-between">
-                     <p className="text-[9px] font-bold text-slate-500 uppercase tracking-tight">{alerta.h} Alocação</p>
+                     <p className="text-[9px] font-bold text-slate-600 uppercase tracking-tight">{alerta.h} Alocação</p>
                      <span className={`text-[8px] font-black uppercase tracking-widest ${alerta.color}`}>{alerta.status}</span>
                   </div>
                 </div>
@@ -251,16 +251,16 @@ export default function Dashboard({ user }: DashboardProps) {
           <div className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-1 h-5 bg-slate-900 rounded-full"></div>
-                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Projetos Recentes</h3>
+                <div className="w-1 h-5 bg-slate-950 rounded-full"></div>
+                <h3 className="text-sm font-bold text-slate-950 uppercase tracking-wider">Projetos Recentes</h3>
               </div>
-              <Link to="/projects" className="text-slate-500 hover:text-slate-900 font-bold text-[10px] uppercase tracking-wider">Ver todos</Link>
+              <Link to="/projects" className="text-slate-600 hover:text-slate-900 font-bold text-[10px] uppercase tracking-wider">Ver todos</Link>
             </div>
 
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>
-                  <tr className="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100">
+                  <tr className="text-[10px] font-bold text-slate-600 uppercase tracking-widest border-b border-slate-100">
                     <th className="pb-4">Acrônimo</th>
                     <th className="pb-4">Vigência</th>
                     <th className="pb-4">Investimento</th>
@@ -276,18 +276,18 @@ export default function Dashboard({ user }: DashboardProps) {
                     >
                       <td className="py-4">
                         <div className="flex flex-col">
-                          <span className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                          <span className="font-bold text-slate-950 group-hover:text-blue-600 transition-colors">
                             {project.acronym}
                           </span>
-                          <span className="text-[10px] font-medium text-slate-400 truncate w-48">{project.title}</span>
+                          <span className="text-[10px] font-medium text-slate-600 truncate w-48">{project.title}</span>
                         </div>
                       </td>
                       <td className="py-4">
-                        <span className="text-xs font-medium text-slate-600">
+                        <span className="text-xs font-medium text-slate-800">
                           {new Date(project.startDate).toLocaleDateString()}
                         </span>
                       </td>
-                      <td className="py-4 text-xs font-bold text-slate-700">
+                      <td className="py-4 text-xs font-bold text-slate-900">
                         R$ {project.totalValue.toLocaleString('pt-BR')}
                       </td>
                       <td className="py-4 text-right">
@@ -307,13 +307,13 @@ export default function Dashboard({ user }: DashboardProps) {
           <div className="bg-slate-900 text-white p-6 rounded-lg shadow-sm border border-slate-800 relative overflow-hidden group">
             <button 
               onClick={() => setIsChartMaximized(true)}
-              className="absolute top-4 right-4 p-2 bg-white/5 hover:bg-white/10 rounded-full transition-all text-slate-400 hover:text-white z-10"
+              className="absolute top-4 right-4 p-2 bg-white/5 hover:bg-white/10 rounded-full transition-all text-slate-300 hover:text-white z-10"
               title="Expandir gráfico"
             >
               <TrendingUp size={16} />
             </button>
-            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-6 flex items-center gap-2">
-              <TrendingUp size={14} className="text-slate-400" />
+            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-300 mb-6 flex items-center gap-2">
+              <TrendingUp size={14} className="text-slate-300" />
               Execução Orçamentária Global
             </p>
             

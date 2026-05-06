@@ -29,8 +29,8 @@ export default function ProjectList({ user }: ProjectListProps) {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-6">
         <div className="space-y-4 flex-1">
           <div>
-            <h2 className="text-2xl font-bold text-slate-900">Catálogo de Projetos</h2>
-            <p className="text-slate-500 text-sm mt-1">Lista completa de ativos institucionais sob gestão do Polo.</p>
+            <h2 className="text-2xl font-bold text-slate-950">Catálogo de Projetos</h2>
+            <p className="text-slate-700 text-sm mt-1">Lista completa de ativos institucionais sob gestão do Polo.</p>
           </div>
           <div className="relative group max-w-lg">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-slate-600 transition-colors" size={16} />
